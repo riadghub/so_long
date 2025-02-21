@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:26:16 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/12 15:59:36 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:36:10 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ void	render_map(t_game *game)
 			else if (game->map[y][x] == 'E')
 				mlx_put_image_to_window(game->mlx, game->win,
 					game->textures.exit, x * TILE_SIZE, y * TILE_SIZE);
-			else if (game->map[y][x] == 'X')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->textures.enemy, x * TILE_SIZE, y * TILE_SIZE);
 			else
 				mlx_put_image_to_window(game->mlx, game->win,
 					game->textures.floor, x * TILE_SIZE, y * TILE_SIZE);

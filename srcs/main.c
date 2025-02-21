@@ -6,16 +6,26 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:26:23 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/13 14:10:56 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:58:49 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	init_all(t_game *game)
+{
+	game->collectibles = count_collectibles(game->map);
+	new_player_position(game);
+}
+
 int	handle_input(int key, t_game *game)
 {
 	if (key == 65307)
 		close_game(game);
+	if (key == MOVE_UP)
+	if (key == MOVE_LEFT)
+	if (key == MOVE_RIGHT)
+	if (key == MOVE_DOWN)
 	return (0);
 }
 
@@ -32,6 +42,7 @@ int	close_game(t_game *game)
 int	main(int argc, char *argv[])
 {
 	t_game	game;
+	t_point	map_size;
 	char	*map;
 	int		i;
 
@@ -56,12 +67,17 @@ int	main(int argc, char *argv[])
 		game.map_height++;
 	while (game.map[0][i++])
 		game.map_width++;
+	map_size.x = game.map_width;
+	map_size.y = game.map_height;
+	if (!is_map_playable(&game, map_size))
+		return (printf("Error: Map is not playable\n"), 1);
 	load_all_textures(&game);
 	game.win = mlx_new_window(game.mlx, game.map_width * TILE_SIZE,
 			game.map_height * TILE_SIZE, "Dungeon Quest I");
 	if (!game.win)
 		return (printf("Error\nFailed to create window\n"), 1);
 	render_map(&game);
+	init_all(&game);
 	mlx_hook(game.win, 17, 0, close_game, &game);
 	mlx_key_hook(game.win, handle_input, &game);
 	mlx_loop(game.mlx);

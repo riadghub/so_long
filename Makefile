@@ -1,13 +1,17 @@
 NAME = so_long
 
-SRCS =	srcs/map.c					\
+SRCS =	srcs/check.c				\
+		srcs/map.c					\
 		srcs/map_utils.c			\
+		srcs/map_utils2.c			\
 		srcs/main.c					\
+		srcs/move.c					\
 		srcs/game.c					\
 		srcs/player.c				\
 		srcs/render.c				\
 		srcs/textures.c				\
 		srcs/utils.c				\
+		srcs/utils2.c				\
 		srcs/ft_split.c				\
 
 HEADERS = ./includes/

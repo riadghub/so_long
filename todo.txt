@@ -1,0 +1,2 @@
+check_player_pos
+check_is_empty

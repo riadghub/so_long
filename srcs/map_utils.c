@@ -6,11 +6,38 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:07:27 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/13 14:52:32 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:34:32 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+char	**copy_map(char **map, t_point map_size)
+{
+	char	**map_copy;
+	int		i;
+
+	map_copy = malloc(sizeof(char *) * (map_size.y + 1));
+	if (!map_copy)
+		return (NULL);
+	i = 0;
+	while (i < map_size.y)
+	{
+		map_copy[i] = malloc(sizeof(char) * (map_size.x + 1));
+		if (!map_copy[i])
+		{
+			while (--i >= 0)
+				free(map_copy[i]);
+			free(map_copy);
+			return (NULL);
+		}
+		ft_memcpy(map_copy[i], map[i], map_size.x);
+		map_copy[i][map_size.x] = '\0';
+		i++;
+	}
+	map_copy[i] = NULL;
+	return (map_copy);
+}
 
 int	is_valid_start(char **s_game)
 {
@@ -71,7 +98,7 @@ int	is_valid_content(char **s_game)
 		{
 			if (s_game[i][j] != '1' && s_game[i][j] != '0'
 				&& s_game[i][j] != 'P' && s_game[i][j] != 'E'
-				&& s_game[i][j] != 'X' && s_game[i][j] != 'C')
+				&& s_game[i][j] != 'C')
 				return (0);
 			j++;
 		}
