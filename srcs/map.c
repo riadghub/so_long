@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:00:31 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/13 14:07:45 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:55:06 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,27 @@ char	**split_map(char *map_str)
 char	*read_map_file(char *file)
 {
 	int		fd;
-	int		bytes_read;
-	char	*buffer;
+	char	*line;
+	char	*map;
+	char	*temp;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
+		return (close(fd), NULL);
+	map = ft_strdup("");
+	if (!map)
+		return (close(fd), NULL);
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		printf("Error: Cannot open map file\n");
-		return (NULL);
+		temp = ft_strjoin(map, line);
+		map = temp;
+		free(line);
+		line = get_next_line(fd);
 	}
-	buffer = malloc(10000);
-	if (!buffer)
-		return (NULL);
-	bytes_read = read(fd, buffer, 9999);
-	buffer[bytes_read] = '\0';
+	free(line);
 	close(fd);
-	return (buffer);
+	return (map);
 }
 
 int	is_valid_wall(char **s_game)

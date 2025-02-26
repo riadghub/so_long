@@ -6,11 +6,40 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:07:36 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/20 11:25:18 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:58:08 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	gamemlx(t_game *game, char *map, char *argv[])
+{
+	if (!game->mlx)
+		return (ft_printf("Error\nFailed to initialize MiniLibX\n"), 0);
+	map = read_map_file(argv[1]);
+	if (!map)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		return (ft_printf("Error: Invalid map file\n"), -1);
+	}
+	game->map = split_map(map);
+	if (!game->map || !game->map[0] || !is_valid_map(game->map))
+		return (ft_printf("Error: Map is empty or invalid\n"), 0);
+	init_size(game);
+	if (!is_map_playable(game))
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+		return (ft_printf("Error: Map is not playable\n"), 0);
+	}
+	load_all_textures(game);
+	game->win = mlx_new_window(game->mlx, game->map_size.x * TILE_SIZE,
+			game->map_size.y * TILE_SIZE, "Dungeon Quest I");
+	if (!game->win)
+		return (ft_printf("Error\nFailed to create window\n"), 0);
+	return (1);
+}
 
 void	free_map_copy(char **map_copy, t_point map_size)
 {
@@ -48,9 +77,31 @@ void	print_double_array(char **array)
 	i = 0;
 	if (!array)
 	{
-		printf("Error: NULL array\n");
+		ft_printf("Error: NULL array\n");
 		return ;
 	}
 	while (array[i])
-		printf("%s\n", array[i++]);
+		ft_printf("%s\n", array[i++]);
+}
+
+int	count_collectibles(char **s_game)
+{
+	int	i;
+	int	j;
+	int	ccount;
+
+	i = 0;
+	ccount = 0;
+	while (s_game[i])
+	{
+		j = 0;
+		while (s_game[i][j])
+		{
+			if (s_game[i][j] == 'C')
+				ccount++;
+			j++;
+		}
+		i++;
+	}
+	return (ccount);
 }

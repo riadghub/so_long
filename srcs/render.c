@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:26:16 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/19 11:36:10 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/26 09:58:18 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,84 @@ void	render_map(t_game *game)
 	int	y;
 
 	y = 0;
-	while (y < game->map_height)
+	while (y < game->map_size.y)
 	{
 		x = 0;
-		while (x < game->map_width)
+		while (x < game->map_size.x)
 		{
-			if (game->map[y][x] == '1')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->textures.wall, x * TILE_SIZE, y * TILE_SIZE);
-			else if (game->map[y][x] == 'P')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->textures.player, x * TILE_SIZE, y * TILE_SIZE);
-			else if (game->map[y][x] == 'C')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->textures.collectible, x * TILE_SIZE, y * TILE_SIZE);
-			else if (game->map[y][x] == 'E')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->textures.exit, x * TILE_SIZE, y * TILE_SIZE);
-			else
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->textures.floor, x * TILE_SIZE, y * TILE_SIZE);
+			rendering(game, x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	render_map_right(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->map_size.y)
+	{
+		x = 0;
+		while (x < game->map_size.x)
+		{
+			rendering_right(game, x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	render_map_left(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->map_size.y)
+	{
+		x = 0;
+		while (x < game->map_size.x)
+		{
+			rendering_left(game, x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	render_map_down(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->map_size.y)
+	{
+		x = 0;
+		while (x < game->map_size.x)
+		{
+			rendering_down(game, x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	render_map_up(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->map_size.y)
+	{
+		x = 0;
+		while (x < game->map_size.x)
+		{
+			rendering_up(game, x, y);
 			x++;
 		}
 		y++;

@@ -6,23 +6,25 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:55 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/12 15:37:22 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:55:12 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_all(char **str)
+void	free_all(char **map)
 {
 	int	i;
 
+	if (!map)
+		return ;
 	i = 0;
-	while (str[i])
+	while (map[i])
 	{
-		free(str[i]);
+		free(map[i]);
 		i++;
 	}
-	free(str);
+	free(map);
 }
 
 int	count_words(const char *str, char c)
