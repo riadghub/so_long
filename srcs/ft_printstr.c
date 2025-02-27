@@ -6,11 +6,17 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:09:31 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/25 10:30:34 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:30:12 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	destroy_all(t_game *game)
+{
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+}
 
 int	ft_putstr(char *s)
 {

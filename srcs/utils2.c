@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 11:07:36 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/26 11:58:08 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:31:52 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,20 @@ int	gamemlx(t_game *game, char *map, char *argv[])
 		return (ft_printf("Error\nFailed to initialize MiniLibX\n"), 0);
 	map = read_map_file(argv[1]);
 	if (!map)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		return (ft_printf("Error: Invalid map file\n"), -1);
-	}
+		return (destroy_all(game), ft_printf("Error: Invalid map file\n"), -1);
 	game->map = split_map(map);
 	if (!game->map || !game->map[0] || !is_valid_map(game->map))
-		return (ft_printf("Error: Map is empty or invalid\n"), 0);
+		return (destroy_all(game),
+			ft_printf("Error: Map is empty or invalid\n"), 0);
 	init_size(game);
 	if (!is_map_playable(game))
+		return (destroy_all(game), ft_printf("Error: Map isn't playable\n"), 0);
+	if (!load_all_textures(game))
 	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		return (ft_printf("Error: Map is not playable\n"), 0);
+		free_textures(game);
+		destroy_all(game);
+		return (0);
 	}
-	load_all_textures(game);
 	game->win = mlx_new_window(game->mlx, game->map_size.x * TILE_SIZE,
 			game->map_size.y * TILE_SIZE, "Dungeon Quest I");
 	if (!game->win)

@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:20:19 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/25 12:10:11 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:27:52 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,30 @@ void	*load_texture(void *mlx, char *path)
 	void	*texture;
 
 	texture = mlx_xpm_file_to_image(mlx, path, &width, &height);
-	if (!texture)
-	{
-		ft_printf("Error\nFailed to load texture.\n");
-		exit(1);
-	}
 	return (texture);
 }
 
-void	load_all_textures(t_game *game)
+int	load_all_textures(t_game *game)
 {
-	game->textures.wall = load_texture(game->mlx, "xpm/wall.xpm");
-	game->textures.player = load_texture(game->mlx,
-			"xpm/character_down_idle.xpm");
-	game->textures.player_down = load_texture(game->mlx,
-			"xpm/character_down_move.xpm");
-	game->textures.player_left = load_texture(game->mlx,
-			"xpm/character_left_move.xpm");
-	game->textures.player_right = load_texture(game->mlx,
-			"xpm/character_right_move.xpm");
-	game->textures.player_up = load_texture(game->mlx,
-			"xpm/character_up_move.xpm");
-	game->textures.collectible = load_texture(game->mlx, "xpm/chest.xpm");
-	game->textures.exit = load_texture(game->mlx, "xpm/exit.xpm");
-	game->textures.floor = load_texture(game->mlx, "xpm/tile.xpm");
+	game->textures.wall = load_texture(game->mlx, WALL_PATH);
+	game->textures.player = load_texture(game->mlx, PLAYER_PATH);
+	game->textures.player_down = load_texture(game->mlx, PLAYER_DOWN_PATH);
+	game->textures.player_left = load_texture(game->mlx, PLAYER_LEFT_PATH);
+	game->textures.player_right = load_texture(game->mlx, PLAYER_RIGHT_PATH);
+	game->textures.player_up = load_texture(game->mlx, PLAYER_UP_PATH);
+	game->textures.collectible = load_texture(game->mlx, CHEST_PATH);
+	game->textures.exit = load_texture(game->mlx, EXIT_PATH);
+	game->textures.floor = load_texture(game->mlx, FLOOR_PATH);
+	if (!game->textures.collectible || !game->textures.wall
+		|| !game->textures.player || !game->textures.player_down
+		|| !game->textures.player_left || !game->textures.player_right
+		|| !game->textures.player_up || !game->textures.exit
+		|| !game->textures.floor)
+	{
+		ft_printf("Error\nFailed to load texture.\n");
+		return (0);
+	}
+	return (1);
 }
 
 void	free_textures(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:00:31 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/26 11:55:06 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:50:05 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*read_map_file(char *file)
 	while (line != NULL)
 	{
 		temp = ft_strjoin(map, line);
+		if (!temp)
+			continue ;
 		map = temp;
 		free(line);
 		line = get_next_line(fd);

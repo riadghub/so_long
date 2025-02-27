@@ -6,25 +6,11 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 13:53:36 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/26 10:02:02 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:12:10 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-	unsigned char	*ptr;
-
-	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-}
 
 t_point	find_exit_position(t_game *game)
 {
@@ -51,4 +37,32 @@ t_point	find_exit_position(t_game *game)
 		i++;
 	}
 	return (exit_pos);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+int	check_file_extension(char *filename)
+{
+	int	len;
+
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	if (ft_strcmp(filename + len - 4, ".ber") != 0)
+		ft_printf("Error: Map should be in a .ber extension.\n");
+	return (ft_strcmp(filename + len - 4, ".ber") == 0);
 }

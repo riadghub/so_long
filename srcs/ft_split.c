@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:55 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/26 11:55:12 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:47:12 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_all(char **map)
 {
 	int	i;
 
-	if (!map)
+	if (!map || !*map)
 		return ;
 	i = 0;
 	while (map[i])

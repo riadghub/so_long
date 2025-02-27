@@ -6,7 +6,7 @@
 /*   By: reeer-aa <reeer-aa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:43:11 by reeer-aa          #+#    #+#             */
-/*   Updated: 2025/02/26 11:55:36 by reeer-aa         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:08:32 by reeer-aa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,20 @@
 # include <unistd.h>
 
 # define TILE_SIZE 48
+# define BUFFER_SIZE 42
 # define MOVE_UP 'w'
 # define MOVE_DOWN 's'
 # define MOVE_LEFT 'a'
 # define MOVE_RIGHT 'd'
-# define BUFFER_SIZE 42
+# define WALL_PATH "xpm/wall.xpm"
+# define CHEST_PATH "xpm/chest.xpm"
+# define EXIT_PATH "xpm/exit.xpm"
+# define FLOOR_PATH "xpm/tile.xpm"
+# define PLAYER_PATH "xpm/character_down_idle.xpm"
+# define PLAYER_UP_PATH "xpm/character_up_move.xpm"
+# define PLAYER_DOWN_PATH "xpm/character_down_move.xpm"
+# define PLAYER_LEFT_PATH "xpm/character_left_move.xpm"
+# define PLAYER_RIGHT_PATH "xpm/character_right_move.xpm"
 
 typedef struct s_game	t_game;
 typedef struct s_node	t_node;
@@ -57,30 +66,29 @@ struct					s_game
 {
 	void				*mlx;
 	void				*win;
-	t_textures			textures;
-	t_point				map_size;
 	char				**map;
 	int					player_x;
 	int					player_y;
 	int					collectibles;
 	int					player_on_exit;
 	int					moves;
+	t_textures			textures;
+	t_point				map_size;
 };
 
+void					destroy_all(t_game *game);
 void					fill(char **tab, t_point size, t_point cur);
 void					first_move(t_game *game);
 void					flood_fill(char **tab, t_point size, t_point begin);
 void					free_all(char **str);
 void					free_map_copy(char **map_copy, t_point map_size);
 void					free_textures(t_game *game);
-void					ft_bzero(void *s, size_t n);
 void					*ft_memcpy(void *dest, const void *src, size_t n);
 void					if_collec(t_game *game, t_point *pos);
 void					if_exit(t_game *game, t_point *pos);
 void					init_player_position(t_game *game);
 void					init_size(t_game *game);
 void					*load_texture(void *mlx, char *path);
-void					load_all_textures(t_game *game);
 void					move_up(t_game *game);
 void					move_down(t_game *game);
 void					move_left(t_game *game);
@@ -114,11 +122,12 @@ char					*read_line(int fd, char *this_line);
 char					*save_remaining(char *str);
 char					**split_map(char *map_str);
 
+int						check_file_extension(char *filename);
 int						check_remaining_elements(char **map_copy,
 							t_point map_size);
+int						close_game(t_game *game);
 int						count_collectibles(char **s_game);
 int						count_words(const char *str, char c);
-int						close_game(t_game *game);
 int						ft_case(char c, va_list args);
 int						ft_putchar(char c);
 void					ft_putchar_final(char t[], int point, int nb);
@@ -129,6 +138,7 @@ int						ft_printf(const char *str, ...);
 int						ft_printhex(unsigned long long n, int maj);
 int						ft_printptr(unsigned long long p);
 int						ft_uputnbr(unsigned int n);
+int						ft_strcmp(char *s1, char *s2);
 int						ft_strlen(char *str);
 int						ft_tablen(char **str);
 int						gamemlx(t_game *game, char *map, char *argv[]);
@@ -142,6 +152,7 @@ int						is_valid_map(char **s_game);
 int						is_valid_start(char **s_game);
 int						is_valid_wall(char **s_game);
 int						is_valid_width(char **s_game);
+int						load_all_textures(t_game *game);
 
 t_point					find_exit_position(t_game *game);
 t_point					find_player_position(t_game *game);

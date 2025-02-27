@@ -83,6 +83,6 @@ re : fclean all
 # Règle pour exécuter le programme
 run : all
 	@echo "$(GREEN)Running $(YELLOW)${NAME}$(RESET)..."
-	@./${NAME}
+	@./${NAME} maps/map2.ber
 
 .PHONY: all clean fclean re run
