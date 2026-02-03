@@ -1,6 +1,6 @@
 # so_long - 42 School (MiniLibX)
 
-Jeu 2D top-down : player (P) collecte C → exit (E). Parsing maps .ber, events clavier, no leaks. [web:54]
+Jeu 2D top-down : player (P) collecte C → exit (E). Parsing maps .ber, events keyboard, no leaks.
 
 ![Screenshot du jeu](textures/screenshots/gameplay.gif) <!-- Ajoute un GIF ! -->
 
