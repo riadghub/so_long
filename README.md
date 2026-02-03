@@ -2,7 +2,7 @@
 
 Jeu 2D top-down : player (P) collecte C → exit (E). Parsing maps .ber, events keyboard, no leaks.
 
-![Screenshot du jeu](textures/screenshots/gameplay.gif) <!-- Ajoute un GIF ! -->
+![Screenshot du jeu](so_long.gif) <!-- Ajoute un GIF ! -->
 
 ## Features
 - Validation map : rectangle, murs (1), 1P/1E, ≥1C, chemin valide (flood-fill DFS).
