@@ -12,6 +12,6 @@ Jeu 2D top-down : player (P) collecte C → exit (E). Parsing maps .ber, events 
 
 ## Installation
 ```bash
-git clone <>
+git clone https://github.com/riadghub/so_long.git
 cd so_long
-make #
+make 
